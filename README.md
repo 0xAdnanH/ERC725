@@ -1,29 +1,47 @@
-## Explanation
-This contract is an implementation of ERC725X, a standard that extends the ERC721 interface for the management of multiple keys and claims associated with an Ethereum address. It allows the contract owner to execute low-level calls on other contracts, including regular calls, static calls, delegate calls, and creating new contracts.
+# ERC725
 
-## Prerequisites
-Before deploying or using this contract, ensure you have the following:
+The ERC725 project implements the ERC725 standard, serving as a generic executor and key-value store. This repository includes the ERC725X executor, ERC725Y will be added soon. The [AA](https://github.com/0xAdnanH/AA/tree/master) repository uses ERC725X and ERC725Y as a base for an account based contract.
 
--An Ethereum development environment
--Solidity compiler version 0.8.9 or compatible
--OpenZeppelin Contracts version that includes the Ownable.sol contract
+## Goals of the Project
 
-## Usage
-### Contract Functions
-#### Execute
-Executes a low-level call on the specified target address. The operationType specifies the type of call to be executed:
+The primary goals of the ERC725 project are to:
 
-0: Regular call (target.call)
-1: Static call (target.staticcall)
-2: Delegate call (target.delegatecall)
-3: Create new contract (create)
-4: Create new contract using create2 (create2)
-This function is only accessible by the contract owner (the address that deployed the contract).
+- **Explore Function Call Encoding with ethers.js:** The project dive into the encoding of function calls using `ethers.js`. The `execute` functions uses bytes to execute functions on other addresses, which makes the understanding of the encoding process essential.
 
-#### executeBatch Function
-Executes multiple low-level calls in a batch. The input arrays (operationType, target, valueToSend, and dataToSend) specify the details of each call to be executed. The function iterates through the arrays and executes each call using the _execute internal function.
+- **Understand Delegatecall with Practical Examples:** The project provides practical examples of using `delegatecall`. By employing delegate calls to mock contracts, the project showcases how changes written within a delegate-called contract affect the caller contract. These examples contribute to a better understanding of the delegatecall mechanism.
 
-## Security Considerations
-Only the contract owner should have access to the execute and executeBatch functions to prevent unauthorized access to the contract's funds and operations.
-Be cautious when using low-level calls as they can have unintended consequences and introduce potential security vulnerabilities.
-Ensure you trust the target contract before executing low-level calls to prevent interacting with malicious or untrusted contracts.
+## Technicalities of the Project
+
+- **Ether.js Tests Organization:** The project organizes its unit tests using the `describe` and `it` blocks within `ethers.js`, enhancing the readability and structure of the test suite.
+
+- **Usage of Array Functions:** The project employs array functions to enhance code readability and maintainability, making the codebase more efficient.
+
+## Installation
+
+### Cloning the Repository
+
+You can clone the repository and install its dependencies to start using the provided smart contracts.
+
+```bash
+$ git clone https://github.com/0xAdnanH/ERC725.git
+$ cd ./ERC725
+$ npm install
+```
+
+### Instructions
+
+#### Compile
+
+To Compile the contract run:
+
+```bash
+$ npx hardhat compile
+```
+
+#### Tests
+
+To run the unit tests:
+
+```bash
+$ npx hardhat test
+```
